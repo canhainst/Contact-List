@@ -1,0 +1,35 @@
+{
+    "login_screen": {
+        "username": "Số di động hoặc email",
+        "pwd": "Mật khẩu",
+        "sign_in": "Đăng nhập",
+        "forget_pwd": "Quên mật khẩu?",
+        "sign_up": "Tạo tài khoản mới"
+    },
+    "contact_screen": {
+        "sort": {
+            "title": "Sắp xếp liên hệ",
+            "byName": "Theo tên",
+            "byLastSeen": "Lần online gần nhất"
+        },
+        "search": "Tìm kiếm",
+        "_formatLastSeen": {
+            "online": "Đang hoạt động",
+            "last_seen_minutes": "hoạt động {m} phút trước",
+            "last_seen_hours": "hoạt động {h} giờ trước",
+            "last_seen_yesterday": "hoạt động hôm qua lúc {time}",
+            "last_seen_date": "hoạt động vào {date}"
+        }
+    },
+    "nav_bar": {
+        "contacts": "Liên hệ",
+        "calls": "Cuộc gọi",
+        "chats": "Tin nhắn",
+        "settings": "Cài đặt"
+    },
+    "main_screen": {},
+    "dialog": {
+        "cancel": "Huỷ"
+    },
+    "error": {}
+}
