@@ -1,5 +1,8 @@
+import 'dart:collection';
+
 import 'package:contact_list/data/models/call_model.dart';
 import 'package:contact_list/data/models/contact_model.dart';
+import 'package:contact_list/data/models/message_model.dart';
 import 'package:contact_list/data/models/user_model.dart';
 
 class UserRepository {
@@ -105,6 +108,10 @@ class UserRepository {
   // Mock call history
   List<Call> calls = [];
 
+  // Mock messages
+  List<Message> messagesWithAlice = [];
+  List<Message> messagesWithBob = [];
+
   UserRepository() {
     // Tạo dữ liệu mock call
     final now = DateTime.now();
@@ -170,6 +177,53 @@ class UserRepository {
         duration: const Duration(minutes: 30),
       ),
     ];
+
+    // Tạo dữ liệu mock messages
+    messagesWithAlice = [
+      Message(
+        content: "Hey, how are you?",
+        time: now.subtract(const Duration(minutes: 30)),
+        contact: contacts[0],
+      ),
+      Message(
+        content: "I’m good, thanks! How about you?",
+        time: now.subtract(const Duration(minutes: 28)),
+        contact: null, // mình gửi
+      ),
+      Message(
+        content: "Doing great! Want to catch up later?",
+        time: now.subtract(const Duration(minutes: 25)),
+        contact: contacts[0],
+      ),
+      Message(
+        content: "Sure, let’s meet at 5pm.",
+        time: now.subtract(const Duration(minutes: 23)),
+        contact: null,
+      ),
+    ];
+
+    messagesWithBob = [
+      Message(
+        content: "Yo bro, are you coming to the game?",
+        time: now.subtract(const Duration(hours: 2, minutes: 15)),
+        contact: contacts[1],
+      ),
+      Message(
+        content: "Yes! I’ll be there in 20 mins.",
+        time: now.subtract(const Duration(hours: 2, minutes: 10)),
+        contact: null,
+      ),
+      Message(
+        content: "Cool, don’t forget the snacks 😄",
+        time: now.subtract(const Duration(hours: 2, minutes: 5)),
+        contact: contacts[1],
+      ),
+      Message(
+        content: "Haha, already packed!",
+        time: now.subtract(const Duration(hours: 2, minutes: 2)),
+        contact: null,
+      ),
+    ];
   }
 
   Future<List<Call>> fetchCalls({int limit = 50}) async {
@@ -178,5 +232,36 @@ class UserRepository {
     calls.sort((a, b) => b.startTime.compareTo(a.startTime));
 
     return calls.take(limit).toList();
+  }
+
+  Future<Map<Contact, List<Message>>> fetchAllConversations() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    final Map<Contact, List<Message>> conversations = {
+      contacts.firstWhere((c) => c.name == "Alice"): messagesWithAlice,
+      contacts.firstWhere((c) => c.name == "Bob"): messagesWithBob,
+    };
+
+    final sortedEntries = conversations.entries.toList()
+      ..sort((a, b) {
+        final lastA = a.value.isNotEmpty
+            ? a.value.last.time
+            : DateTime.fromMillisecondsSinceEpoch(0);
+        final lastB = b.value.isNotEmpty
+            ? b.value.last.time
+            : DateTime.fromMillisecondsSinceEpoch(0);
+        return lastB.compareTo(lastA);
+      });
+
+    return LinkedHashMap.fromEntries(sortedEntries);
+  }
+
+  Future<List<Message>> fetchMessagesWith(Contact contact) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    if (contact.name == "Alice") return messagesWithAlice;
+    if (contact.name == "Bob") return messagesWithBob;
+
+    return [];
   }
 }

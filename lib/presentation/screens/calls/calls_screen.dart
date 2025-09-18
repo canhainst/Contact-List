@@ -140,10 +140,15 @@ class _CallsScreenState extends State<CallsScreen> {
                           )
                         : CircleAvatar(
                             backgroundColor: Colors.blueGrey,
-                            child: Text(
-                              call.contact.name[0].toUpperCase(),
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            backgroundImage: call.contact.avatarUrl != null
+                                ? NetworkImage(call.contact.avatarUrl!)
+                                : null,
+                            child: call.contact.avatarUrl == null
+                                ? Text(
+                                    call.contact.name[0].toUpperCase(),
+                                    style: const TextStyle(color: Colors.white),
+                                  )
+                                : null,
                           ),
                     title: Text(
                       call.contact.name,

@@ -121,7 +121,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
               ],
             ),
 
-            SizedBox(height: 12),
+            SizedBox(height: 16),
 
             Container(
               height: 42,
@@ -156,8 +156,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 },
               ),
             ),
-
-            SizedBox(height: 10),
           ],
         ),
         centerTitle: true,

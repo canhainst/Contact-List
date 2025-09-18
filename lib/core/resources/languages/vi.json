@@ -49,7 +49,9 @@
         "delete": "Xoá"
     },
     "messages_screen": {
-        "edit": "Sửa"
+        "edit": "Sửa",
+        "cancel": "Huỷ",
+        "search": "Tìm kiếm"
     },
     "settings_screen": {
         "edit": "Sửa"

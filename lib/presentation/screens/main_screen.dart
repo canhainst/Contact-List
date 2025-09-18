@@ -1,8 +1,8 @@
 import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/core/theme/app_colors.dart';
 import 'package:contact_list/presentation/screens/calls/calls_screen.dart';
-import 'package:contact_list/presentation/screens/message/chats_screen.dart';
 import 'package:contact_list/presentation/screens/contact/contacts_screen.dart';
+import 'package:contact_list/presentation/screens/message/conversations_screen.dart';
 import 'package:contact_list/presentation/screens/setting/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
     NavigationItem(
       icon: Icons.chat_bubble_outline,
       labelKey: "nav_bar.chats",
-      screen: ChatsScreen(),
+      screen: ConversationsScreen(),
     ),
     NavigationItem(
       icon: Icons.settings,
