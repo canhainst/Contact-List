@@ -5,6 +5,7 @@ import 'package:contact_list/core/utils/url_launcher.dart';
 import 'package:contact_list/logic/call/call_bloc.dart';
 import 'package:contact_list/logic/call/call_event.dart';
 import 'package:contact_list/logic/call/call_state.dart';
+import 'package:contact_list/presentation/screens/contact/contact_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -164,7 +165,18 @@ class _CallsScreenState extends State<CallsScreen> {
                       children: [
                         Text(formatDateTime(call.startTime)),
                         SizedBox(width: 8),
-                        Icon(Icons.info, color: Colors.blueGrey),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ContactDetailScreen(contact: call.contact),
+                              ),
+                            );
+                          },
+                          child: Icon(Icons.info, color: Colors.blueGrey),
+                        ),
                       ],
                     ),
                     onTap: () {

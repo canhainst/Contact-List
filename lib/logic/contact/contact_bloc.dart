@@ -31,6 +31,19 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
       }
     });
 
+    on<CreateContact>((event, emit) async {
+      if (state is ContactLoaded || state is ContactInitial) {
+        emit(ContactLoading());
+        try {
+          userRepository.contacts.insert(0, event.contact);
+          final contacts = await userRepository.fetchContacts();
+          emit(ContactLoaded(contacts, allContacts: contacts));
+        } catch (_) {
+          emit(ContactError("Failed to create contact"));
+        }
+      }
+    });
+
     on<DeleteContact>((event, emit) async {
       if (state is ContactLoaded) {
         emit(ContactLoading());

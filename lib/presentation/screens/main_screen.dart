@@ -1,9 +1,9 @@
 import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/core/theme/app_colors.dart';
-import 'package:contact_list/presentation/screens/calls_screen.dart';
-import 'package:contact_list/presentation/screens/chats_screen.dart';
-import 'package:contact_list/presentation/screens/contacts_screen.dart';
-import 'package:contact_list/presentation/screens/settings_screen.dart';
+import 'package:contact_list/presentation/screens/calls/calls_screen.dart';
+import 'package:contact_list/presentation/screens/message/chats_screen.dart';
+import 'package:contact_list/presentation/screens/contact/contacts_screen.dart';
+import 'package:contact_list/presentation/screens/setting/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationItem {

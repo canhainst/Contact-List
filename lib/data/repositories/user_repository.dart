@@ -83,7 +83,7 @@ class UserRepository {
     String sortBy = 'lastSeen',
     String query = '',
   }) async {
-    // await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     List<Contact> sorted = List<Contact>.from(contacts);
 

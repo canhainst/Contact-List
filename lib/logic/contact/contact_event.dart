@@ -10,6 +10,11 @@ class SortContactsWithQuery extends ContactEvent {
   SortContactsWithQuery({required this.sortBy, required this.query});
 }
 
+class CreateContact extends ContactEvent {
+  final Contact contact;
+  CreateContact(this.contact);
+}
+
 class DeleteContact extends ContactEvent {
   final Contact contact;
   DeleteContact(this.contact);

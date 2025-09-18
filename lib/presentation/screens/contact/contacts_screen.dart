@@ -1,7 +1,8 @@
 import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/core/utils/format_string.dart';
-import 'package:contact_list/presentation/screens/contact_detail_screen.dart';
-import 'package:contact_list/presentation/widgets/skeleton/contact_skeleton.dart';
+import 'package:contact_list/presentation/screens/contact/add_contact_bottom_sheet.dart';
+import 'package:contact_list/presentation/screens/contact/contact_detail_screen.dart';
+import 'package:contact_list/presentation/screens/contact/skeleton/contact_skeleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,8 +37,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
           children: [
             Row(
               children: [
-                TextButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     showCupertinoModalPopup(
                       context: context,
                       builder: (BuildContext context) => CupertinoActionSheet(
@@ -96,19 +97,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                       ),
                     );
                   },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: Size(40, 40),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: const Text(
-                    "Sort",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+
+                  child: Icon(Icons.sort),
                 ),
 
                 Expanded(
@@ -123,14 +113,15 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 ),
 
                 GestureDetector(
-                  onTap: () {},
-                  child: SizedBox(
-                    width: 40,
-                    child: Icon(Icons.add, color: Colors.black),
-                  ),
+                  onTap: () {
+                    showAddContactSheet(context);
+                  },
+                  child: Icon(Icons.add, color: Colors.black),
                 ),
               ],
             ),
+
+            SizedBox(height: 12),
 
             Container(
               height: 42,

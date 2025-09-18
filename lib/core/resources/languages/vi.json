@@ -20,6 +20,16 @@
             "last_seen_yesterday": "hoạt động hôm qua lúc {time}",
             "last_seen_date": "hoạt động vào {date}"
         },
+        "add_contact": {
+            "title": "Liên hệ mới",
+            "cancel": "Huỷ",
+            "create": "Thêm",
+            "first_name": "Tên",
+            "last_name": "Họ",
+            "option1": "di động",
+            "option2": "iphone",
+            "add_more": "thêm"
+        },
         "detail": {
             "message": "Nhắn tin",
             "call": "Gọi",
