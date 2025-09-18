@@ -1,4 +1,6 @@
 import 'package:contact_list/core/config/languages.dart';
+import 'package:contact_list/core/utils/format_string.dart';
+import 'package:contact_list/presentation/screens/contact_detail_screen.dart';
 import 'package:contact_list/presentation/widgets/skeleton/contact_skeleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:contact_list/logic/contact/contact_bloc.dart';
 import 'package:contact_list/logic/contact/contact_state.dart';
 import 'package:contact_list/logic/contact/contact_event.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -21,43 +24,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   void initState() {
     super.initState();
     context.read<ContactBloc>().add(LoadContacts());
-  }
-
-  String _formatLastSeen(BuildContext context, DateTime lastSeen) {
-    final now = DateTime.now();
-    final difference = now.difference(lastSeen);
-
-    var localizations = AppLocalizations.of(context)!;
-
-    if (difference.inMinutes == 0) {
-      return localizations.translate("contact_screen._formatLastSeen.online");
-    } else if (difference.inMinutes < 60) {
-      return localizations.translate(
-        "contact_screen._formatLastSeen.last_seen_minutes",
-        args: {"m": difference.inMinutes.toString()},
-      );
-    } else if (difference.inHours < 24) {
-      return localizations.translate(
-        "contact_screen._formatLastSeen.last_seen_hours",
-        args: {"h": difference.inHours.toString()},
-      );
-    } else if (difference.inDays == 1) {
-      final time =
-          "${lastSeen.hour.toString().padLeft(2, '0')}:${lastSeen.minute.toString().padLeft(2, '0')}";
-      return localizations.translate(
-        "contact_screen._formatLastSeen.last_seen_yesterday",
-        args: {"time": time},
-      );
-    } else {
-      final date =
-          "${lastSeen.day.toString().padLeft(2, '0')}/"
-          "${lastSeen.month.toString().padLeft(2, '0')}/"
-          "${lastSeen.year.toString().substring(2)}";
-      return localizations.translate(
-        "contact_screen._formatLastSeen.last_seen_date",
-        args: {"date": date},
-      );
-    }
   }
 
   @override
@@ -132,7 +98,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
-                    minimumSize: const Size(40, 40),
+                    minimumSize: Size(40, 40),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: const Text(
@@ -156,9 +122,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   ),
                 ),
 
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add, color: Colors.black),
+                GestureDetector(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: 40,
+                    child: Icon(Icons.add, color: Colors.black),
+                  ),
                 ),
               ],
             ),
@@ -186,7 +155,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
                       );
                     },
                     decoration: InputDecoration(
-                      hintText: "Search ...",
+                      hintText: localizations.translate(
+                        'contact_screen.search',
+                      ),
                       prefixIcon: Icon(Icons.search),
                       border: InputBorder.none,
                     ),
@@ -233,34 +204,64 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 .inMinutes ==
                             0;
 
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.blueGrey,
-                            backgroundImage: contact.avatarUrl != null
-                                ? NetworkImage(contact.avatarUrl!)
-                                : null,
-                            child: contact.avatarUrl == null
-                                ? Text(
-                                    contact.name[0].toUpperCase(),
-                                    style: const TextStyle(color: Colors.white),
-                                  )
-                                : null,
+                        return Slidable(
+                          key: Key(contact.phone),
+                          endActionPane: ActionPane(
+                            motion: const DrawerMotion(),
+                            extentRatio: 0.25,
+                            children: [
+                              SlidableAction(
+                                onPressed: (ctx) {
+                                  context.read<ContactBloc>().add(
+                                    DeleteContact(contact),
+                                  );
+                                },
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: 'Delete',
+                              ),
+                            ],
                           ),
-                          title: Text(
-                            contact.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.blueGrey,
+                              backgroundImage: contact.avatarUrl != null
+                                  ? NetworkImage(contact.avatarUrl!)
+                                  : null,
+                              child: contact.avatarUrl == null
+                                  ? Text(
+                                      contact.name[0].toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : null,
                             ),
-                          ),
-                          subtitle: Text(
-                            _formatLastSeen(context, contact.lastSeen),
-                            style: TextStyle(
-                              color: isOnline ? Colors.green : Colors.grey,
-                              fontSize: 14,
+                            title: Text(
+                              contact.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
+                            subtitle: Text(
+                              formatLastSeen(context, contact.lastSeen),
+                              style: TextStyle(
+                                color: isOnline ? Colors.green : Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ContactDetailScreen(contact: contact),
+                                ),
+                              );
+                            },
                           ),
-                          onTap: () {},
                         );
                       },
                     ),

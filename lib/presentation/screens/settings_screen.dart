@@ -1,3 +1,4 @@
+import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,11 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   String avatarUrl =
       'https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg';
+
   @override
   Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -52,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Edit',
+                    localizations.translate('messages_screen.edit'),
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

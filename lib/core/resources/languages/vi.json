@@ -19,7 +19,30 @@
             "last_seen_hours": "hoạt động {h} giờ trước",
             "last_seen_yesterday": "hoạt động hôm qua lúc {time}",
             "last_seen_date": "hoạt động vào {date}"
+        },
+        "detail": {
+            "message": "Nhắn tin",
+            "call": "Gọi",
+            "mute": "Tắt tiếng",
+            "unmute": "Bật tiếng",
+            "more": "Thêm",
+            "missed_call": "Cuộc gọi nhỡ",
+            "contact_add": "Thêm vào liên hệ",
+            "block": "Chặn liên hệ"
         }
+    },
+    "calls_screen": {
+        "all": "Tất cả",
+        "missed": "Gọi nhỡ",
+        "edit": "Sửa",
+        "cancel": "Huỷ",
+        "delete": "Xoá"
+    },
+    "messages_screen": {
+        "edit": "Sửa"
+    },
+    "settings_screen": {
+        "edit": "Sửa"
     },
     "nav_bar": {
         "contacts": "Liên hệ",

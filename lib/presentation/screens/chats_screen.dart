@@ -1,3 +1,4 @@
+import 'package:contact_list/core/config/languages.dart';
 import 'package:flutter/material.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class ChatsScreen extends StatefulWidget {
 class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -23,8 +26,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     minimumSize: const Size(40, 40),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text(
-                    "Edit",
+                  child: Text(
+                    localizations.translate('messages_screen.edit'),
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

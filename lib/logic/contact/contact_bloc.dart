@@ -30,5 +30,22 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
         emit(ContactError("Failed to load contacts"));
       }
     });
+
+    on<DeleteContact>((event, emit) async {
+      if (state is ContactLoaded) {
+        emit(ContactLoading());
+        try {
+          userRepository.contacts.removeWhere(
+            (c) => c.phone == event.contact.phone,
+          );
+
+          // reload
+          final contacts = await userRepository.fetchContacts();
+          emit(ContactLoaded(contacts, allContacts: contacts));
+        } catch (_) {
+          emit(ContactError("Failed to delete contact"));
+        }
+      }
+    });
   }
 }
