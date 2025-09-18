@@ -71,9 +71,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -87,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.blueGrey,
+                backgroundColor: Colors.grey,
                 backgroundImage: widget.contact.avatarUrl != null
                     ? NetworkImage(widget.contact.avatarUrl!)
                     : null,
@@ -99,7 +102,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     : null,
               ),
               const SizedBox(width: 16),
-              Text(widget.contact.name),
+              Text(
+                widget.contact.name,
+                style:
+                    (theme.textTheme.titleLarge ??
+                            theme.textTheme.headlineSmall)
+                        ?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+              ),
             ],
           ),
         ),
@@ -108,7 +120,7 @@ class _ChatScreenState extends State<ChatScreen> {
             onPressed: () {
               callPhone(widget.contact.phone);
             },
-            icon: Icon(Icons.call, color: Colors.black),
+            icon: Icon(Icons.call, color: Colors.white),
           ),
           SizedBox(width: 12),
         ],

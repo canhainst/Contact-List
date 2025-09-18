@@ -1,0 +1,96 @@
+{
+    "login_screen": {
+        "welcome": "Welcome back",
+        "username": "Phone number or email",
+        "pwd": "Password",
+        "sign_in": "Sign in",
+        "remember_me": "Remember me",
+        "forget_pwd": "Forgot password?",
+        "or_continue_with": "Or continue with",
+        "no_account": "Don't have an account?",
+        "sign_up": "Create a new account"
+    },
+    "contact_screen": {
+        "sort": {
+            "title": "Sort contacts",
+            "byName": "By name",
+            "byLastSeen": "Last seen"
+        },
+        "search": "Search",
+        "_formatLastSeen": {
+            "online": "Online",
+            "last_seen_minutes": "active {m} minutes ago",
+            "last_seen_hours": "active {h} hours ago",
+            "last_seen_yesterday": "active yesterday at {time}",
+            "last_seen_date": "active on {date}"
+        },
+        "add_contact": {
+            "title": "New contact",
+            "cancel": "Cancel",
+            "create": "Add",
+            "first_name": "First name",
+            "last_name": "Last name",
+            "option1": "mobile",
+            "option2": "iPhone",
+            "add_more": "Add more"
+        },
+        "detail": {
+            "message": "Message",
+            "call": "Call",
+            "mute": "Mute",
+            "unmute": "Unmute",
+            "more": "More",
+            "missed_call": "Missed call",
+            "contact_add": "Add to contacts",
+            "block": "Block contact"
+        }
+    },
+    "calls_screen": {
+        "all": "All",
+        "missed": "Missed",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "new_call": {
+            "title": "New call",
+            "close": "Close",
+            "call": "Call",
+            "calls": "Call {num} contacts"
+        }
+    },
+    "messages_screen": {
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "search": "Search",
+        "new_chat": {
+            "title": "New chat",
+            "close": "Close"
+        }
+    },
+    "settings_screen": {
+        "edit": "Edit",
+        "account": "Account",
+        "account_sub": "Privacy & security",
+        "general": "General",
+        "general_sub": "Language & region",
+        "preferences": "Preferences",
+        "push_notifications": "Push notifications",
+        "dark_mode": "Dark mode",
+        "use_fingerprint": "Use fingerprint",
+        "support": "Support",
+        "help_feedback": "Help & feedback",
+        "about": "About",
+        "logout": "Log out"
+    },
+    "nav_bar": {
+        "contacts": "Contacts",
+        "calls": "Calls",
+        "chats": "Chats",
+        "settings": "Settings"
+    },
+    "main_screen": {},
+    "dialog": {
+        "cancel": "Cancel"
+    },
+    "error": {}
+}

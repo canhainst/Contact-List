@@ -1,9 +1,13 @@
 {
     "login_screen": {
+        "welcome": "Chào mừng trở lại",
         "username": "Số di động hoặc email",
         "pwd": "Mật khẩu",
         "sign_in": "Đăng nhập",
+        "remember_me": "Nhớ mật khẩu",
         "forget_pwd": "Quên mật khẩu?",
+        "or_continue_with": "Hoặc tiếp tuc với",
+        "no_account": "Không có tài khoản?",
         "sign_up": "Tạo tài khoản mới"
     },
     "contact_screen": {
@@ -46,15 +50,37 @@
         "missed": "Gọi nhỡ",
         "edit": "Sửa",
         "cancel": "Huỷ",
-        "delete": "Xoá"
+        "delete": "Xoá",
+        "new_call": {
+            "title": "Cuộc gọi mới",
+            "close": "Thoát",
+            "call": "Gọi",
+            "calls": "Gọi {num} liên hệ"
+        }
     },
     "messages_screen": {
         "edit": "Sửa",
         "cancel": "Huỷ",
-        "search": "Tìm kiếm"
+        "search": "Tìm kiếm",
+        "new_chat": {
+            "title": "Tin nhắn mới",
+            "close": "Thoát"
+        }
     },
     "settings_screen": {
-        "edit": "Sửa"
+        "edit": "Sửa",
+        "account": "Tài khoản",
+        "account_sub": "Quyền riêng tư, bảo mật",
+        "general": "Chung",
+        "general_sub": "Ngôn ngữ, khu vực",
+        "preferences": "Tùy chọn",
+        "push_notifications": "Thông báo đẩy",
+        "dark_mode": "Chế độ tối",
+        "use_fingerprint": "Sử dụng vân tay",
+        "support": "Hỗ trợ",
+        "help_feedback": "Trợ giúp & Phản hồi",
+        "about": "Giới thiệu",
+        "logout": "Đăng xuất"
     },
     "nav_bar": {
         "contacts": "Liên hệ",

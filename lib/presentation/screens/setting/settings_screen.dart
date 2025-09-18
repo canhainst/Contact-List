@@ -1,6 +1,9 @@
 import 'package:contact_list/core/config/languages.dart';
-import 'package:contact_list/core/theme/app_text_styles.dart';
+import 'package:contact_list/logic/auth/auth_bloc.dart';
+import 'package:contact_list/logic/auth/auth_event.dart';
+import 'package:contact_list/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,62 +16,254 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String avatarUrl =
       'https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg';
 
+  bool pushNotifications = true;
+  bool darkMode = false;
+  bool useFingerprint = false;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.qr_code, size: 24),
+      backgroundColor: theme.colorScheme.surface,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: true,
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              expandedHeight: 260,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.blueGrey.shade600,
+                        Colors.blueGrey.shade300,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 48),
+                              Text(
+                                localizations.translate('nav_bar.settings'),
+                                style:
+                                    (theme.textTheme.titleLarge ??
+                                            theme.textTheme.headlineSmall)
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          CircleAvatar(
+                            radius: 54,
+                            backgroundImage: NetworkImage(avatarUrl),
+                            backgroundColor: Colors.grey.shade200,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Nguyễn Thành',
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            '+84 397 300 280  •  @Bane_Scott',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-
-                Expanded(
+              ),
+            ),
+          ];
+        },
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              const SizedBox(height: 8),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.blueGrey,
-                        backgroundImage: NetworkImage(avatarUrl),
+                      _buildInfoTile(
+                        Icons.person,
+                        localizations.translate('settings_screen.account'),
+                        localizations.translate('settings_screen.account_sub'),
                       ),
-                      SizedBox(height: 4),
-                      Text('Nguyễn Thành'),
-                      SizedBox(height: 4),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('+84 397 300 280', style: AppTextStyles.subbody),
-                          SizedBox(width: 8),
-                          Icon(Icons.fiber_manual_record, size: 7),
-                          SizedBox(width: 8),
-                          Text('@Bane_Scott', style: AppTextStyles.subbody),
-                        ],
+                      _buildInfoTile(
+                        Icons.settings,
+                        localizations.translate('settings_screen.general'),
+                        localizations.translate('settings_screen.general_sub'),
                       ),
                     ],
                   ),
                 ),
+              ),
+              const SizedBox(height: 12),
+              _sectionHeader(
+                localizations.translate('settings_screen.preferences'),
+              ),
 
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    localizations.translate('messages_screen.edit'),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(height: 6),
+              _buildSwitchTile(
+                Icons.notifications,
+                localizations.translate('settings_screen.push_notifications'),
+                pushNotifications,
+                onChanged: (v) {
+                  setState(() => pushNotifications = v);
+                },
+              ),
+
+              _buildSwitchTile(
+                Icons.dark_mode,
+                localizations.translate('settings_screen.dark_mode'),
+                darkMode,
+                onChanged: (v) {
+                  setState(() => darkMode = v);
+                },
+              ),
+              _buildSwitchTile(
+                Icons.fingerprint,
+                localizations.translate('settings_screen.use_fingerprint'),
+                useFingerprint,
+                onChanged: (v) {
+                  setState(() => useFingerprint = v);
+                },
+              ),
+              const SizedBox(height: 12),
+              _sectionHeader('Support'),
+              const SizedBox(height: 6),
+              _buildTile(
+                Icons.help_outline,
+                localizations.translate('settings_screen.help_feedback'),
+                onTap: () {},
+              ),
+              _buildTile(
+                Icons.verified,
+                localizations.translate('settings_screen.about'),
+                subtitle: 'v1.0.0',
+                onTap: () {},
+              ),
+
+              const SizedBox(height: 20),
+              AppButton(
+                text: localizations.translate('settings_screen.logout'),
+                color: Colors.redAccent,
+                onPressed: () {
+                  context.read<AuthBloc>().add(LogoutRequested());
+
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+              ),
+
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildInfoTile(IconData icon, String title, String subtitle) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.blue.shade700),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+      subtitle: Text(subtitle),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: () {},
+    );
+  }
+
+  Widget _sectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 6),
+      child: Text(
+        title.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTile(
+    IconData icon,
+    String title, {
+    String? subtitle,
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.blue.shade700),
+      title: Text(title, style: const TextStyle(fontSize: 16)),
+      subtitle: subtitle != null ? Text(subtitle) : null,
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildSwitchTile(
+    IconData icon,
+    String title,
+    bool value, {
+    required ValueChanged<bool> onChanged,
+  }) {
+    return SwitchListTile(
+      activeColor: Colors.blue.shade700,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+      secondary: Icon(icon, color: Colors.blue.shade700),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+      value: value,
+      onChanged: onChanged,
     );
   }
 }

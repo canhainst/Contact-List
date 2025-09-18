@@ -5,6 +5,7 @@ import 'package:contact_list/core/utils/url_launcher.dart';
 import 'package:contact_list/logic/call/call_bloc.dart';
 import 'package:contact_list/logic/call/call_event.dart';
 import 'package:contact_list/logic/call/call_state.dart';
+import 'package:contact_list/presentation/screens/calls/new_call_bottom_sheet.dart';
 import 'package:contact_list/presentation/screens/contact/contact_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,9 @@ class _CallsScreenState extends State<CallsScreen> {
           },
         ),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            showNewCallBottomSheet(context);
+          },
           icon: Icon(Icons.add_call, size: 24),
         ),
         actions: [
@@ -127,6 +130,8 @@ class _CallsScreenState extends State<CallsScreen> {
                     leading: editState
                         ? Checkbox(
                             shape: CircleBorder(),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             value: _selectedCalls.contains(index),
                             onChanged: (val) {
                               setState(() {
@@ -185,7 +190,17 @@ class _CallsScreenState extends State<CallsScreen> {
                       ],
                     ),
                     onTap: () {
-                      callPhone(call.contact.phone);
+                      if (!editState) {
+                        callPhone(call.contact.phone);
+                      } else {
+                        setState(() {
+                          if (_selectedCalls.contains(index)) {
+                            _selectedCalls.remove(index);
+                          } else {
+                            _selectedCalls.add(index);
+                          }
+                        });
+                      }
                     },
                   );
                 },

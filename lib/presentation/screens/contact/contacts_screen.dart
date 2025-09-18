@@ -30,6 +30,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -98,16 +99,19 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     );
                   },
 
-                  child: Icon(Icons.sort),
+                  child: Icon(Icons.sort, color: Colors.white),
                 ),
 
                 Expanded(
                   child: Text(
-                    "Contacts",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    localizations.translate('nav_bar.contacts'),
+                    style:
+                        (theme.textTheme.titleLarge ??
+                                theme.textTheme.headlineSmall)
+                            ?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -116,7 +120,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   onTap: () {
                     showAddContactSheet(context);
                   },
-                  child: Icon(Icons.add, color: Colors.black),
+                  child: Icon(Icons.add, color: Colors.white),
                 ),
               ],
             ),

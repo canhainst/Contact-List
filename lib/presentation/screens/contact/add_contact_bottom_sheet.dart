@@ -15,7 +15,7 @@ void showAddContactSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.black87,
+    backgroundColor: Colors.white,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
@@ -50,7 +50,7 @@ void showAddContactSheet(BuildContext context) {
                         'contact_screen.add_contact.title',
                       ),
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -96,7 +96,7 @@ void showAddContactSheet(BuildContext context) {
                         children: [
                           TextField(
                             controller: firstNameController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               hintText: localizations.translate(
                                 'contact_screen.add_contact.first_name',
@@ -105,9 +105,10 @@ void showAddContactSheet(BuildContext context) {
                               border: InputBorder.none,
                             ),
                           ),
+                          Divider(color: Colors.grey),
                           TextField(
                             controller: lastNameController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               hintText: localizations.translate(
                                 'contact_screen.add_contact.last_name',
@@ -132,14 +133,14 @@ void showAddContactSheet(BuildContext context) {
                       localizations.translate(
                         'contact_screen.add_contact.option1',
                       ),
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                     ),
                     SizedBox(width: 8),
                     Expanded(
                       child: TextField(
                         controller: numberPhoneController,
                         keyboardType: TextInputType.phone,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           hintText: "+84",
                           hintStyle: TextStyle(color: Colors.grey),

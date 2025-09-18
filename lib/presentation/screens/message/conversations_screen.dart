@@ -6,6 +6,7 @@ import 'package:contact_list/logic/message/message_event.dart';
 import 'package:contact_list/logic/message/message_state.dart';
 import 'package:contact_list/main.dart';
 import 'package:contact_list/presentation/screens/message/chat_screen.dart';
+import 'package:contact_list/presentation/screens/message/new_chat_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,6 +53,7 @@ class _ConversationsScreenState extends State<ConversationsScreen>
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +78,7 @@ class _ConversationsScreenState extends State<ConversationsScreen>
                       'messages_screen.${editState ? 'cancel' : 'edit'}',
                     ),
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -85,22 +87,27 @@ class _ConversationsScreenState extends State<ConversationsScreen>
 
                 Expanded(
                   child: Text(
-                    "Messages",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    localizations.translate('nav_bar.chats'),
+                    style:
+                        (theme.textTheme.titleLarge ??
+                                theme.textTheme.headlineSmall)
+                            ?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
                     textAlign: TextAlign.center,
                   ),
                 ),
 
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showChatBottomSheet(context);
+                  },
                   child: SizedBox(
                     width: 40,
                     child: Icon(
                       Icons.border_color,
-                      color: Colors.black,
+                      color: Colors.white,
                       size: 20,
                     ),
                   ),
@@ -204,12 +211,25 @@ class _ConversationsScreenState extends State<ConversationsScreen>
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatScreen(contact: contact),
-                      ),
-                    );
+                    if (editState) {
+                      setState(() {
+                        if (_selectedConversations.contains(index)) {
+                          _selectedConversations.remove(index);
+                        } else {
+                          _selectedConversations.add(index);
+                        }
+                      });
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: context.read<MessageBloc>(),
+                            child: ChatScreen(contact: contact),
+                          ),
+                        ),
+                      );
+                    }
                   },
                 );
               },
