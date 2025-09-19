@@ -5,8 +5,8 @@ A simple **Flutter BLoC Demo** showcasing state management with [flutter_bloc](h
 ---
 
 ## 🔑 Login Credentials
-username: admin
-password: 1234
+- username: admin
+- password: 1234
 
 
 ---
@@ -14,7 +14,6 @@ password: 1234
 ## 🚀 Features
 - Flutter + BLoC pattern
 - Simple login with predefined credentials
-- Clean and minimal code structure
 
 ---
 
@@ -32,13 +31,3 @@ flutter pub get
 # Run the app
 flutter run
 ```
-
----
-
-## 📂 Project Structure
-lib/
- ┣ core/         # App configuration
- ┣ logic/        # BLoC, Cubit, Events, States
- ┣ data/         # Repository & Models
- ┣ presentation/ # UI Widgets & Screens
- ┗ main.dart     # Entry point
