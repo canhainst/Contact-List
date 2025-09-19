@@ -33,11 +33,12 @@ class _CallsScreenState extends State<CallsScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: theme.colorScheme.surface,
         elevation: 0,
         centerTitle: true,
         title: CupertinoSegmentedControl<int>(
@@ -76,7 +77,7 @@ class _CallsScreenState extends State<CallsScreen> {
           onPressed: () {
             showNewCallBottomSheet(context);
           },
-          icon: Icon(Icons.add_call, size: 24),
+          icon: Icon(Icons.add_call, size: 24, color: theme.iconTheme.color),
         ),
         actions: [
           TextButton(
@@ -91,7 +92,7 @@ class _CallsScreenState extends State<CallsScreen> {
                 'calls_screen.${editState ? 'cancel' : 'edit'}',
               ),
               style: TextStyle(
-                color: Colors.black,
+                color: theme.primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -127,39 +128,50 @@ class _CallsScreenState extends State<CallsScreen> {
                 itemBuilder: (context, index) {
                   final call = filteredCalls[index];
                   return ListTile(
-                    leading: editState
-                        ? Checkbox(
-                            shape: CircleBorder(),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            value: _selectedCalls.contains(index),
-                            onChanged: (val) {
-                              setState(() {
-                                if (val == true) {
-                                  _selectedCalls.add(index);
-                                } else {
-                                  _selectedCalls.remove(index);
-                                }
-                              });
-                            },
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Colors.blueGrey,
-                            backgroundImage: call.contact.avatarUrl != null
-                                ? NetworkImage(call.contact.avatarUrl!)
-                                : null,
-                            child: call.contact.avatarUrl == null
-                                ? Text(
-                                    call.contact.name[0].toUpperCase(),
-                                    style: const TextStyle(color: Colors.white),
-                                  )
-                                : null,
-                          ),
+                    leading: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        editState
+                            ? Padding(
+                                padding: EdgeInsetsGeometry.only(right: 8),
+                                child: Checkbox(
+                                  shape: CircleBorder(),
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  value: _selectedCalls.contains(index),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      if (val == true) {
+                                        _selectedCalls.add(index);
+                                      } else {
+                                        _selectedCalls.remove(index);
+                                      }
+                                    });
+                                  },
+                                ),
+                              )
+                            : SizedBox(),
+                        CircleAvatar(
+                          backgroundColor: Colors.blueGrey,
+                          backgroundImage: call.contact.avatarUrl != null
+                              ? NetworkImage(call.contact.avatarUrl!)
+                              : null,
+                          child: call.contact.avatarUrl == null
+                              ? Text(
+                                  call.contact.name[0].toUpperCase(),
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              : null,
+                        ),
+                      ],
+                    ),
                     title: Text(
                       call.contact.name,
                       style: AppTextStyles.body.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: call.isMissed ? Colors.redAccent : Colors.black,
+                        color: call.isMissed
+                            ? Colors.redAccent
+                            : theme.textTheme.bodyLarge!.color,
                       ),
                     ),
                     subtitle: Text(

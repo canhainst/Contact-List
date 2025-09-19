@@ -34,6 +34,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
         title: Column(
           children: [
             Row(
@@ -130,13 +133,14 @@ class _ContactsScreenState extends State<ContactsScreen> {
             Container(
               height: 42,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: theme.cardColor,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: BlocBuilder<ContactBloc, ContactState>(
                 builder: (context, state) {
                   return TextField(
                     controller: _searchBarController,
+                    style: TextStyle(color: theme.textTheme.bodyLarge!.color),
                     onChanged: (value) {
                       final currentSort = state is ContactLoaded
                           ? state.sortState
@@ -153,7 +157,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
                       hintText: localizations.translate(
                         'contact_screen.search',
                       ),
-                      prefixIcon: Icon(Icons.search),
+                      hintStyle: TextStyle(color: theme.hintColor),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: theme.iconTheme.color,
+                      ),
                       border: InputBorder.none,
                     ),
                   );

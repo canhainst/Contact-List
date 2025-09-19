@@ -2,6 +2,7 @@ import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/logic/auth/auth_bloc.dart';
 import 'package:contact_list/logic/auth/auth_event.dart';
 import 'package:contact_list/presentation/widgets/app_button.dart';
+import 'package:contact_list/core/theme/app_theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,13 +18,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       'https://jbagy.me/wp-content/uploads/2025/03/anh-avatar-vo-tri-meo-1.jpg';
 
   bool pushNotifications = true;
-  bool darkMode = false;
   bool useFingerprint = false;
+  ThemeMode _selectedTheme = ThemeMode.light;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var localizations = AppLocalizations.of(context)!;
+
+    // read current theme mode from cubit
+    final themeCubit = context.read<ThemeCubit>();
+    _selectedTheme = themeCubit.mode;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -123,25 +128,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 1,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Column(
-                    children: [
-                      _buildInfoTile(
-                        Icons.person,
-                        localizations.translate('settings_screen.account'),
-                        localizations.translate('settings_screen.account_sub'),
-                      ),
-                      _buildInfoTile(
-                        Icons.settings,
-                        localizations.translate('settings_screen.general'),
-                        localizations.translate('settings_screen.general_sub'),
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    _buildInfoTile(
+                      Icons.person,
+                      localizations.translate('settings_screen.account'),
+                      localizations.translate('settings_screen.account_sub'),
+                    ),
+                    _buildInfoTile(
+                      Icons.settings,
+                      localizations.translate('settings_screen.general'),
+                      localizations.translate('settings_screen.general_sub'),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 12),
@@ -162,11 +161,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildSwitchTile(
                 Icons.dark_mode,
                 localizations.translate('settings_screen.dark_mode'),
-                darkMode,
+                _selectedTheme == ThemeMode.dark,
                 onChanged: (v) {
-                  setState(() => darkMode = v);
+                  setState(() {
+                    _selectedTheme = v ? ThemeMode.dark : ThemeMode.light;
+                  });
+                  context.read<ThemeCubit>().setThemeMode(_selectedTheme);
                 },
               ),
+
               _buildSwitchTile(
                 Icons.fingerprint,
                 localizations.translate('settings_screen.use_fingerprint'),
@@ -175,6 +178,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   setState(() => useFingerprint = v);
                 },
               ),
+              const SizedBox(height: 12),
+
               const SizedBox(height: 12),
               _sectionHeader('Support'),
               const SizedBox(height: 6),

@@ -57,6 +57,9 @@ class _ConversationsScreenState extends State<ConversationsScreen>
 
     return Scaffold(
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
         title: Column(
           children: [
             Row(
@@ -120,13 +123,15 @@ class _ConversationsScreenState extends State<ConversationsScreen>
             Container(
               height: 42,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: theme.cardColor,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: BlocBuilder<MessageBloc, MessageState>(
                 builder: (context, state) {
                   return TextField(
                     controller: _searchBarController,
+                    style: TextStyle(color: theme.textTheme.bodyLarge!.color),
+
                     onChanged: (value) {
                       context.read<MessageBloc>().add(
                         SearchConversations(value),
@@ -136,7 +141,11 @@ class _ConversationsScreenState extends State<ConversationsScreen>
                       hintText: localizations.translate(
                         'messages_screen.search',
                       ),
-                      prefixIcon: Icon(Icons.search),
+                      hintStyle: TextStyle(color: theme.hintColor),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: theme.iconTheme.color,
+                      ),
                       border: InputBorder.none,
                     ),
                   );

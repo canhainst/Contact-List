@@ -13,11 +13,12 @@ import 'package:contact_list/logic/contact/contact_state.dart';
 void showChatBottomSheet(BuildContext context) {
   final searchBarController = TextEditingController();
   var localizations = AppLocalizations.of(context)!;
+  final theme = Theme.of(context);
 
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.white,
+    backgroundColor: theme.colorScheme.surface,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
@@ -53,6 +54,9 @@ class _NewCallContent extends StatefulWidget {
 class _NewCallContentState extends State<_NewCallContent> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Column(
       children: [
         // Header
@@ -79,7 +83,11 @@ class _NewCallContentState extends State<_NewCallContent> {
                   "messages_screen.new_chat.title",
                 ),
 
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: theme.textTheme.bodySmall?.color,
+                ),
               ),
               const Spacer(),
               const SizedBox(width: 50),
@@ -93,13 +101,19 @@ class _NewCallContentState extends State<_NewCallContent> {
           child: Container(
             height: 42,
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: isDark ? Colors.black : Colors.white,
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? Colors.white : Colors.black,
+                width: 0.2,
+              ),
             ),
+
             child: BlocBuilder<ContactBloc, ContactState>(
               builder: (context, state) {
                 return TextField(
                   controller: widget.searchBarController,
+                  style: TextStyle(color: isDark ? Colors.white : Colors.black),
                   onChanged: (value) {
                     final currentSort = state is ContactLoaded
                         ? state.sortState
