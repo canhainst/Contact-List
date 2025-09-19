@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Switch(
                                 value: _remember,
-                                activeColor: Theme.of(context).primaryColor,
+                                activeColor: theme.primaryColor,
                                 onChanged: (v) => setState(() => _remember = v),
                               ),
                               const SizedBox(width: 8),
@@ -112,7 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   localizations.translate(
                                     'login_screen.remember_me',
                                   ),
-                                  style: AppTextStyles.body,
+                                  style: AppTextStyles.body.copyWith(
+                                    color: theme.textTheme.bodySmall?.color,
+                                  ),
                                 ),
                               ),
 
@@ -123,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'login_screen.forget_pwd',
                                   ),
                                   style: AppTextStyles.body.copyWith(
-                                    color: Theme.of(context).primaryColor,
+                                    color: theme.primaryColor,
                                   ),
                                 ),
                               ),

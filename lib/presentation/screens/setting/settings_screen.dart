@@ -1,3 +1,4 @@
+import 'package:contact_list/core/config/language_cubit.dart';
 import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/logic/auth/auth_bloc.dart';
 import 'package:contact_list/logic/auth/auth_event.dart';
@@ -102,10 +103,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               fontSize: 18,
                             ),
                           ),
-                          const SizedBox(height: 6),
                           Text(
                             '+84 397 300 280  •  @Bane_Scott',
-                            style: theme.textTheme.bodySmall?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.white70,
                             ),
                           ),
@@ -180,7 +180,97 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 12),
 
+              _sectionHeader(
+                localizations.translate('settings_screen.language.title'),
+              ),
+
+              const SizedBox(height: 6),
+
+              // Language selection (system / en / vi / cn)
+              Builder(
+                builder: (context) {
+                  final langCubit = context.read<LanguageCubit>();
+                  final current = langCubit.languageCode;
+
+                  return DropdownButtonFormField<String>(
+                    value: current,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                    ),
+                    items: [
+                      DropdownMenuItem(
+                        value: 'system',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.phone_iphone, size: 18),
+                            const SizedBox(width: 8),
+                            Text(
+                              localizations.translate(
+                                'settings_screen.language.lang_system',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 'en',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.language, size: 18),
+                            const SizedBox(width: 8),
+                            Text(
+                              localizations.translate(
+                                'settings_screen.language.lang_en',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 'vi',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.language, size: 18),
+                            const SizedBox(width: 8),
+                            Text(
+                              localizations.translate(
+                                'settings_screen.language.lang_vi',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 'zh',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.language, size: 18),
+                            const SizedBox(width: 8),
+                            Text(
+                              localizations.translate(
+                                'settings_screen.language.lang_cn',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    onChanged: (v) {
+                      if (v == null) return;
+                      context.read<LanguageCubit>().setLanguage(v);
+                    },
+                  );
+                },
+              ),
+
               const SizedBox(height: 12),
+
               _sectionHeader('Support'),
               const SizedBox(height: 6),
               _buildTile(

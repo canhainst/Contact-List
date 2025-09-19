@@ -80,7 +80,14 @@
         "support": "Support",
         "help_feedback": "Help & feedback",
         "about": "About",
-        "logout": "Log out"
+        "logout": "Log out",
+        "language": {
+            "title": "Language",
+            "lang_system": "System",
+            "lang_en": "English",
+            "lang_vi": "Vietnamese",
+            "lang_cn": "Chinese"
+        }
     },
     "nav_bar": {
         "contacts": "Contacts",
@@ -92,5 +99,8 @@
     "dialog": {
         "cancel": "Cancel"
     },
-    "error": {}
+    "error": {},
+    "common": {
+        "back": "Back"
+    }
 }

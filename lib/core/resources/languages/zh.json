@@ -1,0 +1,106 @@
+{
+    "login_screen": {
+        "welcome": "欢迎回来",
+        "username": "手机号或邮箱",
+        "pwd": "密码",
+        "sign_in": "登录",
+        "remember_me": "记住密码",
+        "forget_pwd": "忘记密码？",
+        "or_continue_with": "或者继续使用",
+        "no_account": "没有账号？",
+        "sign_up": "创建新账号"
+    },
+    "contact_screen": {
+        "sort": {
+            "title": "排序联系人",
+            "byName": "按姓名",
+            "byLastSeen": "最近上线"
+        },
+        "search": "搜索",
+        "_formatLastSeen": {
+            "online": "在线",
+            "last_seen_minutes": "{m}分钟前在线",
+            "last_seen_hours": "{h}小时前在线",
+            "last_seen_yesterday": "昨天 {time} 在线",
+            "last_seen_date": "{date} 在线"
+        },
+        "add_contact": {
+            "title": "新联系人",
+            "cancel": "取消",
+            "create": "添加",
+            "first_name": "名",
+            "last_name": "姓",
+            "option1": "手机",
+            "option2": "iPhone",
+            "add_more": "添加更多"
+        },
+        "detail": {
+            "message": "发消息",
+            "call": "拨打电话",
+            "mute": "静音",
+            "unmute": "取消静音",
+            "more": "更多",
+            "missed_call": "未接来电",
+            "contact_add": "添加到联系人",
+            "block": "屏蔽联系人"
+        }
+    },
+    "calls_screen": {
+        "all": "全部",
+        "missed": "未接来电",
+        "edit": "编辑",
+        "cancel": "取消",
+        "delete": "删除",
+        "new_call": {
+            "title": "新通话",
+            "close": "关闭",
+            "call": "拨打",
+            "calls": "呼叫 {num} 个联系人"
+        }
+    },
+    "messages_screen": {
+        "edit": "编辑",
+        "cancel": "取消",
+        "search": "搜索",
+        "new_chat": {
+            "title": "新消息",
+            "close": "关闭"
+        }
+    },
+    "settings_screen": {
+        "edit": "编辑",
+        "account": "账户",
+        "account_sub": "隐私，安全",
+        "general": "通用",
+        "general_sub": "语言，地区",
+        "preferences": "偏好设置",
+        "push_notifications": "推送通知",
+        "dark_mode": "深色模式",
+        "use_fingerprint": "使用指纹",
+        "support": "支持",
+        "help_feedback": "帮助与反馈",
+        "about": "关于",
+        "logout": "退出登录",
+        "language": {
+            "title": "语言",
+            "lang_system": "系统",
+            "lang_en": "英语",
+            "lang_vi": "越南语",
+            "lang_cn": "中文"
+        }
+    },
+    "nav_bar": {
+        "contacts": "联系人",
+        "calls": "通话",
+        "chats": "消息",
+        "settings": "设置"
+    },
+    "main_screen": {},
+    "dialog": {
+        "cancel": "取消"
+    },
+    "error": {},
+    "common": {
+        "back": "后退"
+    }
+}

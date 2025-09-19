@@ -29,6 +29,8 @@ class _AppTextInputState extends State<AppTextInput> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return TextFormField(
       controller: widget.controller,
       obscureText: _obscure,
@@ -39,11 +41,11 @@ class _AppTextInputState extends State<AppTextInput> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.grey, width: 1),
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.black, width: 1.2),
+          borderSide: BorderSide(color: theme.disabledColor, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -53,7 +55,7 @@ class _AppTextInputState extends State<AppTextInput> {
             ? IconButton(
                 icon: Icon(
                   _obscure ? Icons.visibility_off : Icons.visibility,
-                  color: Colors.black,
+                  color: theme.iconTheme.color,
                 ),
                 onPressed: () {
                   setState(() {

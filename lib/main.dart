@@ -1,3 +1,4 @@
+import 'package:contact_list/core/config/language_cubit.dart';
 import 'package:contact_list/core/config/languages.dart';
 import 'package:contact_list/core/theme/app_theme_cubit.dart';
 import 'package:contact_list/data/repositories/user_repository.dart';
@@ -32,26 +33,44 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CallBloc(userRepository)),
         BlocProvider(create: (_) => MessageBloc(userRepository)),
         BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => LanguageCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter BLoC Demo',
-            theme: theme,
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('en'), Locale('vi')],
-            initialRoute: "/",
-            routes: {
-              "/": (context) => LoginScreen(),
-              "/main": (context) => MainScreen(),
+          return BlocBuilder<LanguageCubit, String>(
+            builder: (context, langCode) {
+              Locale? appLocale;
+
+              if (langCode == 'system') {
+                appLocale = null;
+              } else {
+                appLocale = Locale(langCode);
+              }
+
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter BLoC Demo',
+                theme: theme,
+                locale: appLocale,
+                localizationsDelegates: const [
+                  AppLocalizationsDelegate(),
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('vi'),
+                  Locale('zh'),
+                ],
+                initialRoute: "/",
+                routes: {
+                  "/": (context) => LoginScreen(),
+                  "/main": (context) => MainScreen(),
+                },
+                navigatorObservers: [routeObserver],
+              );
             },
-            navigatorObservers: [routeObserver],
           );
         },
       ),

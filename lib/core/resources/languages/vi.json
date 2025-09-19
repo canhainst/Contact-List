@@ -80,7 +80,14 @@
         "support": "Hỗ trợ",
         "help_feedback": "Trợ giúp & Phản hồi",
         "about": "Giới thiệu",
-        "logout": "Đăng xuất"
+        "logout": "Đăng xuất",
+        "language": {
+            "title": "Ngôn ngữ",
+            "lang_system": "Hệ thống",
+            "lang_en": "Tiếng Anh",
+            "lang_vi": "Tiếng Việt",
+            "lang_cn": "Tiếng Trung"
+        }
     },
     "nav_bar": {
         "contacts": "Liên hệ",
@@ -92,5 +99,8 @@
     "dialog": {
         "cancel": "Huỷ"
     },
-    "error": {}
+    "error": {},
+    "common": {
+        "back": "Trở về"
+    }
 }

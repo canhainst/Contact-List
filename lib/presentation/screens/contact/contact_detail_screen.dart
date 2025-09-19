@@ -25,15 +25,22 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    var localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: theme.scaffoldBackgroundColor,
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(16, 50, 16, 8),
-            color: Colors.blueGrey,
+            padding: EdgeInsets.fromLTRB(16, 50, 16, 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+              color: Colors.blueGrey,
+            ),
+
             child: Column(
               children: [
                 GestureDetector(
@@ -42,10 +49,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
                   },
                   child: Row(
                     children: [
-                      Icon(Icons.arrow_back_ios, color: Colors.black, size: 24),
+                      Icon(Icons.arrow_back_ios, color: Colors.white, size: 24),
                       Text(
-                        "Back",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        localizations.translate('common.back'),
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ],
                   ),
@@ -155,7 +162,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
                               ),
                               SizedBox(width: 16),
                               Text(
-                                "Missed call",
+                                localizations.translate(
+                                  'contact_screen.detail.missed_call',
+                                ),
                                 style: AppTextStyles.body.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -181,14 +190,18 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Add to Contacts',
+                            localizations.translate(
+                              'contact_screen.detail.contact_add',
+                            ),
                             style: AppTextStyles.body.copyWith(
                               color: Colors.white,
                             ),
                           ),
                           Divider(color: Colors.white, thickness: 0.5),
                           Text(
-                            'Block user',
+                            localizations.translate(
+                              'contact_screen.detail.block',
+                            ),
                             style: AppTextStyles.body.copyWith(
                               color: Colors.red,
                             ),
@@ -207,8 +220,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
   }
 
   Widget _iconSelection(BuildContext context, IconData icon, String key) {
+    final theme = Theme.of(context);
     var localizations = AppLocalizations.of(context)!;
-    Color color = Colors.white;
+    Color color = theme.iconTheme.color!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,12 +237,15 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
   }
 
   Widget _buildSelectionBlock(Widget child, {VoidCallback? onPressed}) {
+    final theme = Theme.of(context);
+    bool isDark = theme.brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.grey[400],
+          color: isDark ? Colors.grey[800] : Colors.grey[400],
           borderRadius: BorderRadius.circular(12),
         ),
         child: child,
